@@ -19,7 +19,10 @@ const VehicleCard = props => {
   }, []);
   const navigateMapView = () => {
     setVal1(val1 + 1);
-    navigation.navigate('GlobalMap', {vehicleParams: vehicleParams});
+    navigation.navigate('ViewMap', {
+      vehicleParams: vehicleParams,
+      vehicleRegistrationNumber: vehicleRegistrationNumber,
+    });
   };
   return (
     <Pressable

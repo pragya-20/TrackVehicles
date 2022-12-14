@@ -7,16 +7,6 @@ import VehicleMarker from '../components/VehicleMarker';
 import database from '@react-native-firebase/database';
 
 const GlobalMap = () => {
-  //   const markerLongitude = route.params.vehicleParams.longitude;
-  //   const markerLatitude = route.params.vehicleParams.latitude;
-
-  //   console.log('Inside MapView', route.params.vehicleParams);
-  //   const thisRegion = {
-  //     latitude: markerLatitude,
-  //     longitude: markerLongitude,
-  //     latitudeDelta: 35,
-  //     longitudeDelta: 10,
-  //   };
   const {val1, allVehicles, setAllVehicles} = useContext(GlobalLocationContext);
 
   useEffect(() => {
@@ -49,8 +39,8 @@ const GlobalMap = () => {
         initialRegion={{
           latitude: 13,
           longitude: 77.5,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 7,
+          longitudeDelta: 5,
         }}
         zoomEnabled={true}>
         {allVehicles.map(vehicle => {

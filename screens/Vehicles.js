@@ -1,12 +1,20 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {View, TextInput, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import VehicleCard from '../components/VehicleCard';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {GlobalLocationContext} from '../context/LocationContext';
 
 const Vehicles = ({route, navigation}) => {
   const token = route.params.token;
-
+  const nav = useNavigation();
   const {val1, setVal1, allVehicles, setAllVehicles} = useContext(
     GlobalLocationContext,
   );
@@ -48,12 +56,22 @@ const Vehicles = ({route, navigation}) => {
     getData();
     setVal1(val1 + 1);
   }, []);
+  const goToMap = () => {
+    nav.navigate('GlobalMap');
+  };
+
   return (
     <>
       <View>
         <View style={styles.headerStyle}>
           <Text style={styles.titleStyle}>TrackNerd</Text>
-          {/* <Icon name="chevron-back"></Icon> */}
+
+          <Pressable onPress={goToMap}>
+            <Image
+              style={{height: 40, width: 40}}
+              source={require('../assets/map.png')}
+            />
+          </Pressable>
         </View>
         <TextInput
           style={styles.input}
@@ -98,8 +116,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignSelf: 'center',
   },
-  titleStyle: {paddingHorizontal: 20, color: '#ffffff', fontSize: 25},
+  titleStyle: {
+    paddingHorizontal: 10,
+    color: '#ffffff',
+    fontSize: 25,
+    borderWidth: 1,
+  },
   headerStyle: {
+    flexDirection: 'row',
     height: 60,
     alignItems: 'flex-start',
     justifyContent: 'center',
