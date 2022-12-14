@@ -13,3 +13,4 @@ https://www.makeuseof.com/view-hidden-files-and-folders-linux/#:~:text=By%20defa
 https://reactnavigation.org/docs/tab-based-navigation/
 https://reactnative.dev/docs/network
 https://stackoverflow.com/questions/47027401/pass-props-stacknavigator
+https://stackoverflow.com/questions/3304014/how-to-interpolate-variables-in-strings-in-javascript-without-concatenation

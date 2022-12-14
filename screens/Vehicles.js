@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {View, TextInput, Text, StyleSheet} from 'react-native';
 import VehicleCard from '../Components/VehicleCard';
-// import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+// import {Icon} from 'react-native-vector-icons/Icon';
 
 const Vehicles = ({route}) => {
   const token = route.params.token;
@@ -48,6 +48,7 @@ const Vehicles = ({route}) => {
       <View>
         <View style={styles.headerStyle}>
           <Text style={styles.titleStyle}>TrackNerd</Text>
+          {/* <Icon name="chevron-back"></Icon> */}
         </View>
         <TextInput
           style={styles.input}
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   titleStyle: {paddingHorizontal: 20, color: '#ffffff', fontSize: 25},
   headerStyle: {
     height: 60,
-    borderWidth: 1,
+    // borderWidth: 1,
     alignItems: 'flex-start',
     justifyContent: 'center',
     backgroundColor: '#008ECC',

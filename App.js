@@ -38,11 +38,6 @@ const App = () => {
         {token ? (
           <>
             <Stack.Screen
-              name="TabMenu"
-              component={TabMenu}
-              initialParams={{token}}
-            />
-            <Stack.Screen
               name="Vehicles"
               component={Vehicles}
               initialParams={{token}}
