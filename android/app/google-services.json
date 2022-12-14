@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "345775111083",
+    "firebase_url": "https://tracknerd-staging-default-rtdb.firebaseio.com",
+    "project_id": "tracknerd-staging",
+    "storage_bucket": "tracknerd-staging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847967007196:web:ae4df284f5560af4139f19",
+        "android_client_info": {
+          "package_name": "com.vehicletracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345775111083-21pfrmo3ghd9l3gjcvum7uh2cgggjipv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDahAZLP3Fe68j9C-7ZT9i0nAqiQWXhs_4"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}
