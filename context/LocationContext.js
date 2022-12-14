@@ -10,30 +10,6 @@ const GlobalLocationProvider = ({children}) => {
   const [allVehicles, setAllVehicles] = useState([]);
   const [vehicle, setVehicle] = useState([]);
 
-  //   const addToMap = id => {
-  //     const product = getProductsById(id);
-
-  //     setVehicle(existingItems => {
-  //       const x = existingItems.find(item => {
-  //         return item.id === id;
-  //       });
-  //       if (!x) {
-  //         return [
-  //           ...existingItems,
-  //           {id, product, qty: 1, totalPrice: product.price},
-  //         ];
-  //       } else {
-  //         return existingItems.map(x => {
-  //           if (x.id === id) {
-  //             x.qty++;
-  //             x.totalPrice += product.price;
-  //           }
-  //           return x;
-  //         });
-  //       }
-  //     });
-  //   };
-
   return (
     <GlobalLocationContext.Provider
       value={{

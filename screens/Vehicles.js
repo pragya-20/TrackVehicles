@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState, useContext} from 'react';
 import {
   View,
@@ -54,34 +55,56 @@ const Vehicles = ({route, navigation}) => {
   };
   useEffect(() => {
     getData();
-    setVal1(val1 + 1);
   }, []);
+
   const goToMap = () => {
     nav.navigate('GlobalMap');
   };
 
+  const removeItemValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@token');
+      return true;
+    } catch (e) {
+      return e;
+      console.log(e);
+    }
+  };
+  const logOut = () => {
+    AsyncStorage.removeItem('@token');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Login'}],
+    });
+  };
   return (
-    <>
+    <View style={{flex: 1, backgroundColor: '#ffffff', borderBottomRadius: 10}}>
       <View>
         <View style={styles.headerStyle}>
           <Text style={styles.titleStyle}>TrackNerd</Text>
-
-          <Pressable onPress={goToMap}>
+          <Pressable>
             <Image
-              style={{height: 40, width: 40}}
+              style={styles.mapImageStyle}
               source={require('../assets/map.png')}
             />
           </Pressable>
+          <Pressable onPress={logOut}>
+            <Image
+              style={styles.mapImageStyle}
+              source={require('../assets/logout.png')}
+            />
+          </Pressable>
         </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Search"
-          placeholderTextColor="#000000"
-          onChangeText={val => {
-            setSearchTerm(val);
-          }}
-        />
-        <Text>{val1}</Text>
+        <View style={{marginHorizontal: 20}}>
+          <TextInput
+            style={styles.searchInputStyle}
+            placeholder="Search"
+            placeholderTextColor="#000000"
+            onChangeText={val => {
+              setSearchTerm(val);
+            }}
+          />
+        </View>
       </View>
       <KeyboardAwareScrollView
         style={styles.scrollStyle}
@@ -100,37 +123,45 @@ const Vehicles = ({route, navigation}) => {
             return <VehicleCard key={i} x={item} nav={navigation} />; //Passing navigation prop of screen to it's child
           })}
       </KeyboardAwareScrollView>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    borderRadius: 30,
-    width: 187,
+  searchInputStyle: {
+    borderRadius: 10,
+    // borderWidth: 1,
+    width: '100%',
     color: 'gray',
     backgroundColor: '#EFEEEE',
-    marginLeft: 16,
+    marginHorizontal: 80,
     marginVertical: 20,
     paddingHorizontal: 20,
-    borderWidth: 1,
+    // borderWidth: 1,
+    borderColor: 'gray',
     alignSelf: 'center',
+    height: 40,
   },
   titleStyle: {
-    paddingHorizontal: 10,
+    marginTop: 15,
+    paddingHorizontal: 30,
     color: '#ffffff',
     fontSize: 25,
-    borderWidth: 1,
   },
   headerStyle: {
     flexDirection: 'row',
     height: 60,
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#008ECC',
   },
+  mapImageStyle: {height: 40, width: 40, marginRight: 20, marginTop: 10},
   scrollStyle: {
     flex: 1,
+    // borderWidth: 1,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    marginHorizontal: 15,
   },
   contentStyle: {justifyContent: 'center', alignItems: 'center'},
 });

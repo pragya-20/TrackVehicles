@@ -28,31 +28,68 @@ const VehicleCard = props => {
     <Pressable
       onPress={() => {
         navigateMapView();
-      }}>
+      }}
+      style={styles.container}>
       <View style={styles.cardContainer}>
-        <Text>{vehicleRegistrationNumber}</Text>
-        <Text>{vehicleParams?.latitude}</Text>
-        <Text>{vehicleParams?.longitude}</Text>
-        <Text>{vehicleParams?.timestamp}</Text>
-        <Text>{vehicleParams?.bearing}</Text>
-        <Text>{vehicleParams?.distance}</Text>
-        <Text>{vehicleParams?.speed}</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <Text style={styles.vehicleSpecsStyle}>Vehicle Number:</Text>
+          <Text style={styles.vehicleSpecsStyle}>
+            {vehicleRegistrationNumber}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <Text style={styles.vehicleSpecsStyle}>Current Latitude:</Text>
+          <Text style={styles.vehicleSpecsStyle}>
+            {vehicleParams?.latitude}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+          <Text style={styles.vehicleSpecsStyle}>Current Longitude:</Text>
+          <Text style={styles.vehicleSpecsStyle}>
+            {vehicleParams?.longitude}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <Text style={styles.vehicleSpecsStyle}>Current Timestamp: </Text>
+          <Text style={styles.vehicleSpecsStyle}>
+            {vehicleParams?.timestamp}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            // justifyContent: 'space-around',
+            alignItems: 'flex-start',
+            borderWidth: 1,
+            width: '100%',
+          }}>
+          <Text style={styles.vehicleSpecsStyle}>Current Speed: </Text>
+          <Text style={styles.vehicleSpecsStyle}>{vehicleParams?.speed}</Text>
+        </View>
       </View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {width: '100%'},
   cardContainer: {
     height: 150,
-    width: 300,
-    backgroundColor: 'pink',
-    color: '#ffffff',
-    borderWidth: 1,
-    marginVertical: 20,
-    borderRadius: 40,
+    // width: 300,
+    backgroundColor: '#ADD8E6',
+
+    // borderWidth: 1,
+    marginVertical: 15,
+    marginHorizontal: 5,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  vehicleSpecsStyle: {
+    borderWidth: 1,
+    marginHorizontal: 30,
+    color: '#000000',
+    textAlign: 'center',
   },
 });
 

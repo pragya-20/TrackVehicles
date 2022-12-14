@@ -35,20 +35,18 @@ const App = () => {
   return (
     <GlobalLocationProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          {token ? (
-            <>
-              <Stack.Screen
-                name="Vehicles"
-                component={Vehicles}
-                initialParams={{token}}
-              />
-              <Stack.Screen name="ViewMap" component={ViewMap} />
-              <Stack.Screen name="GlobalMap" component={GlobalMap} />
-            </>
-          ) : (
-            <Stack.Screen name="Login" component={Login} />
-          )}
+        <Stack.Navigator
+          screenOptions={{headerShown: false}}
+          initialRouteName={token ? 'Vehicles' : 'Login'}>
+          <Stack.Screen name="Login" component={Login} />
+
+          <Stack.Screen
+            name="Vehicles"
+            component={Vehicles}
+            initialParams={{token}}
+          />
+          <Stack.Screen name="ViewMap" component={ViewMap} />
+          <Stack.Screen name="GlobalMap" component={GlobalMap} />
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalLocationProvider>

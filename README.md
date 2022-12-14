@@ -1,4 +1,4 @@
-# VehicleTracking
+# VehicleTracking Notes and References
 
 response from api: {"\_h": 0, "\_i": 0, "\_j": null, "\_k": null} 200
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options
@@ -14,3 +14,7 @@ https://reactnavigation.org/docs/tab-based-navigation/
 https://reactnative.dev/docs/network
 https://stackoverflow.com/questions/47027401/pass-props-stacknavigator
 https://stackoverflow.com/questions/3304014/how-to-interpolate-variables-in-strings-in-javascript-without-concatenation
+navigation.reset-- after removing the token also, I was able to go back to the previous screen
+to remove the token from async, we remove the key of that
+
+https://akshay-s-somkuwar.medium.com/dismiss-hide-keyboard-on-tap-outside-of-textinput-react-native-b94016f35ff0
