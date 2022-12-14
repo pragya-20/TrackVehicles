@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import MapView from 'react-native-maps';
-
+import {View} from 'react-native';
 import {GlobalLocationContext} from '../context/LocationContext';
 import VehicleMarker from '../components/VehicleMarker';
 import database from '@react-native-firebase/database';

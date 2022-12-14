@@ -17,7 +17,6 @@ import {GlobalLocationContext} from '../context/LocationContext';
 const Vehicles = ({route, navigation}) => {
   const [loading, setLoading] = useState(false);
   const token = route.params.token;
-  const nav = useNavigation();
   const {allVehicles, setAllVehicles} = useContext(GlobalLocationContext);
 
   const [data, setData] = useState(undefined);
@@ -61,7 +60,7 @@ const Vehicles = ({route, navigation}) => {
   }, []);
 
   const goToMap = () => {
-    nav.navigate('GlobalMap');
+    navigation.navigate('GlobalMap');
   };
 
   const removeItemValue = async () => {
