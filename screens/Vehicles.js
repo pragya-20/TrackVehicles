@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {View, TextInput, Text, StyleSheet} from 'react-native';
-import VehicleCard from '../Components/VehicleCard';
+import VehicleCard from '../components/VehicleCard';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-// import {Icon} from 'react-native-vector-icons/Icon';
+import {GlobalLocationContext} from '../context/LocationContext';
 
 const Vehicles = ({route, navigation}) => {
-  // console.log('Vehicles Props:--', navigation);
   const token = route.params.token;
+
+  const {val1, setVal1, allVehicles, setAllVehicles} = useContext(
+    GlobalLocationContext,
+  );
+
   const [data, setData] = useState(undefined);
   const [searchTerm, setSearchTerm] = useState('');
   const [vehiclesArray, setVehiclesArray] = useState([]);
@@ -23,7 +27,6 @@ const Vehicles = ({route, navigation}) => {
           },
         },
       );
-      //   console.log('response code', response.status);
       if (response.status === 200) {
         const dataResponse = await response.json();
         const localData = dataResponse.data;
@@ -32,10 +35,10 @@ const Vehicles = ({route, navigation}) => {
 
         for (let i = 0; i < localData.length; i++) {
           let v = localData[i].vehicles;
-          //   console.log('No of Vehicles in data' + i + ' ', v.length);
           vArray = [...vArray, ...v];
         }
         setVehiclesArray(vArray);
+        setAllVehicles(vArray);
       }
     } catch (error) {
       console.log('error:', error);
@@ -43,6 +46,7 @@ const Vehicles = ({route, navigation}) => {
   };
   useEffect(() => {
     getData();
+    setVal1(val1 + 1);
   }, []);
   return (
     <>
@@ -59,6 +63,7 @@ const Vehicles = ({route, navigation}) => {
             setSearchTerm(val);
           }}
         />
+        <Text>{val1}</Text>
       </View>
       <KeyboardAwareScrollView
         style={styles.scrollStyle}
@@ -87,7 +92,6 @@ const styles = StyleSheet.create({
     width: 187,
     color: 'gray',
     backgroundColor: '#EFEEEE',
-    // fontFamily: 'SF-Pro-Rounded-Semibold',
     marginLeft: 16,
     marginVertical: 20,
     paddingHorizontal: 20,
@@ -97,12 +101,13 @@ const styles = StyleSheet.create({
   titleStyle: {paddingHorizontal: 20, color: '#ffffff', fontSize: 25},
   headerStyle: {
     height: 60,
-    // borderWidth: 1,
     alignItems: 'flex-start',
     justifyContent: 'center',
     backgroundColor: '#008ECC',
   },
-  scrollStyle: {borderWidth: 1, flex: 1},
+  scrollStyle: {
+    flex: 1,
+  },
   contentStyle: {justifyContent: 'center', alignItems: 'center'},
 });
 export default Vehicles;

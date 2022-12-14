@@ -3,9 +3,11 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import {GlobalLocationProvider} from './context/LocationContext';
 import ViewMap from './screens/ViewMap';
 import Login from './screens/Login';
 import Vehicles from './screens/Vehicles';
+import GlobalMap from './screens/GlobalMap';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,22 +33,25 @@ const App = () => {
     return null;
   }
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        {token ? (
-          <>
-            <Stack.Screen
-              name="Vehicles"
-              component={Vehicles}
-              initialParams={{token}}
-            />
-            <Stack.Screen name="ViewMap" component={ViewMap} />
-          </>
-        ) : (
-          <Stack.Screen name="Login" component={Login} />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GlobalLocationProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          {token ? (
+            <>
+              <Stack.Screen
+                name="Vehicles"
+                component={Vehicles}
+                initialParams={{token}}
+              />
+              <Stack.Screen name="ViewMap" component={ViewMap} />
+              <Stack.Screen name="GlobalMap" component={GlobalMap} />
+            </>
+          ) : (
+            <Stack.Screen name="Login" component={Login} />
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GlobalLocationProvider>
   );
 };
 export default App;

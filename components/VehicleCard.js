@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import database from '@react-native-firebase/database';
 import {useNavigation} from '@react-navigation/native';
+import {GlobalLocationContext} from '../context/LocationContext';
 
 const VehicleCard = props => {
+  const {val1, setVal1, allVehicles} = useContext(GlobalLocationContext);
   const navigation = useNavigation();
-  // const navigation = props.nav;
-  // console.log('Card Nav-', props.nav);
-  // console.log('Props---', props);
   const vehicleId = props.x.id;
   const vehicleRegistrationNumber = props.x.registrationNumber;
   const [vehicleParams, setvehicleParams] = useState(undefined);
@@ -16,18 +15,11 @@ const VehicleCard = props => {
       .ref(`${vehicleId}-${vehicleRegistrationNumber}/location`)
       .on('value', snapshot => {
         setvehicleParams(snapshot.val());
-        // console.log(
-        //   'vehicle data->',
-        //   vehicleRegistrationNumber,
-        //   snapshot.val(),
-        // );
       });
   }, []);
   const navigateMapView = () => {
-    // console.log('NAV', navigation);
-    console.log('Card clicked');
-    // navigation.navigate('ViewMap');
-    navigation.navigate('ViewMap');
+    setVal1(val1 + 1);
+    navigation.navigate('GlobalMap', {vehicleParams: vehicleParams});
   };
   return (
     <Pressable

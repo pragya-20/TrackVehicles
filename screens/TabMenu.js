@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 const TabMenu = ({route}) => {
   // console.log('Props->', props);
-  console.log('route', route);
+  // console.log('route', route);
   const token = route.params.token;
 
   return (

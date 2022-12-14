@@ -1,21 +1,28 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import MapView from 'react-native-maps';
 import {Text, View} from 'react-native';
+import {Marker} from 'react-native-maps';
+import {GlobalLocationContext} from '../context/LocationContext';
 
-const ViewMap = () => {
-  // console.log('Inside MapView');
+const ViewMap = ({route}) => {
+  const markerLongitude = route.params.vehicleParams.longitude;
+  const markerLatitude = route.params.vehicleParams.latitude;
+
+  // console.log('Inside MapView', route.params.vehicleParams);
+  const thisRegion = {
+    latitude: markerLatitude,
+    longitude: markerLongitude,
+    latitudeDelta: 35,
+    longitudeDelta: 10,
+  };
+  const {val1, allVehicles} = useContext(GlobalLocationContext);
+  // console.log(val1);
+  // console.log('Global VehicleArray: ', allVehicles);
   return (
     <View style={{flex: 1}}>
-      <Text style={{color: 'red'}}>Hello</Text>
-      <MapView
-        style={{flex: 1}}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+      <MapView style={{flex: 1}} initialRegion={thisRegion}>
+        <Marker coordinate={thisRegion} />
+      </MapView>
     </View>
   );
 };
