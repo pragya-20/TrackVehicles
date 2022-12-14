@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import VehicleCard from '../components/VehicleCard';
@@ -14,11 +15,10 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {GlobalLocationContext} from '../context/LocationContext';
 
 const Vehicles = ({route, navigation}) => {
+  const [loading, setLoading] = useState(false);
   const token = route.params.token;
   const nav = useNavigation();
-  const {val1, setVal1, allVehicles, setAllVehicles} = useContext(
-    GlobalLocationContext,
-  );
+  const {allVehicles, setAllVehicles} = useContext(GlobalLocationContext);
 
   const [data, setData] = useState(undefined);
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,6 +26,7 @@ const Vehicles = ({route, navigation}) => {
 
   const getData = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         'https://staging-api.tracknerd.io/v1/vehicle-groups/vehicles',
         {
@@ -36,6 +37,7 @@ const Vehicles = ({route, navigation}) => {
           },
         },
       );
+      setLoading(false);
       if (response.status === 200) {
         const dataResponse = await response.json();
         const localData = dataResponse.data;
@@ -51,6 +53,7 @@ const Vehicles = ({route, navigation}) => {
       }
     } catch (error) {
       console.log('error:', error);
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -65,9 +68,8 @@ const Vehicles = ({route, navigation}) => {
     try {
       await AsyncStorage.removeItem('@token');
       return true;
-    } catch (e) {
-      return e;
-      console.log(e);
+    } catch (error) {
+      return error;
     }
   };
   const logOut = () => {
@@ -82,7 +84,8 @@ const Vehicles = ({route, navigation}) => {
       <View>
         <View style={styles.headerStyle}>
           <Text style={styles.titleStyle}>TrackNerd</Text>
-          <Pressable>
+
+          <Pressable onPress={goToMap}>
             <Image
               style={styles.mapImageStyle}
               source={require('../assets/map.png')}
@@ -95,6 +98,7 @@ const Vehicles = ({route, navigation}) => {
             />
           </Pressable>
         </View>
+
         <View style={{marginHorizontal: 20}}>
           <TextInput
             style={styles.searchInputStyle}
@@ -106,6 +110,7 @@ const Vehicles = ({route, navigation}) => {
           />
         </View>
       </View>
+      {loading && <ActivityIndicator size="large" color="#00ff00" />}
       <KeyboardAwareScrollView
         style={styles.scrollStyle}
         contentContainerStyle={styles.contentStyle}>
@@ -143,7 +148,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   titleStyle: {
-    marginTop: 15,
+    marginTop: 10,
     paddingHorizontal: 30,
     color: '#ffffff',
     fontSize: 25,
@@ -154,6 +159,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     backgroundColor: '#008ECC',
+    paddingTop: 5,
   },
   mapImageStyle: {height: 40, width: 40, marginRight: 20, marginTop: 10},
   scrollStyle: {

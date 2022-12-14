@@ -1,13 +1,12 @@
 import React, {useContext, useEffect} from 'react';
 import MapView from 'react-native-maps';
-import {Text, View} from 'react-native';
-import {Marker} from 'react-native-maps';
+
 import {GlobalLocationContext} from '../context/LocationContext';
 import VehicleMarker from '../components/VehicleMarker';
 import database from '@react-native-firebase/database';
 
 const GlobalMap = () => {
-  const {val1, allVehicles, setAllVehicles} = useContext(GlobalLocationContext);
+  const {allVehicles, setAllVehicles} = useContext(GlobalLocationContext);
 
   useEffect(() => {
     allVehicles.map(vehicle => {
@@ -18,7 +17,6 @@ const GlobalMap = () => {
             ...vehicle,
             ...snapshot.val(),
           };
-          console.log('updated ', snapshot.val()?.latitude, vehicle.id);
           setAllVehicles(prevState =>
             prevState.map(item => {
               if (item.id === vehicle.id) {
@@ -44,7 +42,6 @@ const GlobalMap = () => {
         }}
         zoomEnabled={true}>
         {allVehicles.map(vehicle => {
-          //   console.log(vehicle.id, vehicle.latitude, vehicle.longitude);
           if (vehicle.latitude && vehicle.longitude) {
             return <VehicleMarker vehicle={vehicle} />;
           } else {

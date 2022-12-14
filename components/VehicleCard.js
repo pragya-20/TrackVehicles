@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable, Alert} from 'react-native';
 import database from '@react-native-firebase/database';
 import {useNavigation} from '@react-navigation/native';
 import {GlobalLocationContext} from '../context/LocationContext';
 
 const VehicleCard = props => {
-  const {val1, setVal1, allVehicles} = useContext(GlobalLocationContext);
+  const {allVehicles} = useContext(GlobalLocationContext);
   const navigation = useNavigation();
   const vehicleId = props.x.id;
   const vehicleRegistrationNumber = props.x.registrationNumber;
@@ -18,11 +18,15 @@ const VehicleCard = props => {
       });
   }, []);
   const navigateMapView = () => {
-    setVal1(val1 + 1);
-    navigation.navigate('ViewMap', {
-      vehicleParams: vehicleParams,
-      vehicleRegistrationNumber: vehicleRegistrationNumber,
-    });
+    if (vehicleParams != null) {
+      navigation.navigate('ViewMap', {
+        vehicleParams: vehicleParams,
+        vehicleRegistrationNumber: vehicleRegistrationNumber,
+        navigation: navigation,
+      });
+    } else {
+      Alert.alert('Vehicle does not have configuraions to be mapped!');
+    }
   };
   return (
     <Pressable
@@ -31,38 +35,35 @@ const VehicleCard = props => {
       }}
       style={styles.container}>
       <View style={styles.cardContainer}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+        <View style={styles.vehicleSpecsConatiner}>
           <Text style={styles.vehicleSpecsStyle}>Vehicle Number:</Text>
           <Text style={styles.vehicleSpecsStyle}>
             {vehicleRegistrationNumber}
           </Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+
+        <View style={styles.vehicleSpecsConatiner}>
           <Text style={styles.vehicleSpecsStyle}>Current Latitude:</Text>
           <Text style={styles.vehicleSpecsStyle}>
             {vehicleParams?.latitude}
           </Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+
+        <View style={styles.vehicleSpecsConatiner}>
           <Text style={styles.vehicleSpecsStyle}>Current Longitude:</Text>
           <Text style={styles.vehicleSpecsStyle}>
             {vehicleParams?.longitude}
           </Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+
+        <View style={styles.vehicleSpecsConatiner}>
           <Text style={styles.vehicleSpecsStyle}>Current Timestamp: </Text>
           <Text style={styles.vehicleSpecsStyle}>
             {vehicleParams?.timestamp}
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            // justifyContent: 'space-around',
-            alignItems: 'flex-start',
-            borderWidth: 1,
-            width: '100%',
-          }}>
+
+        <View style={styles.vehicleSpecsConatiner}>
           <Text style={styles.vehicleSpecsStyle}>Current Speed: </Text>
           <Text style={styles.vehicleSpecsStyle}>{vehicleParams?.speed}</Text>
         </View>
@@ -85,10 +86,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  vehicleSpecsConatiner: {
+    marginVertical: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
   vehicleSpecsStyle: {
-    borderWidth: 1,
-    marginHorizontal: 30,
+    marginHorizontal: 10,
     color: '#000000',
+    fontSize: 15,
     textAlign: 'center',
   },
 });
