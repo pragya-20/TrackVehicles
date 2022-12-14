@@ -21,7 +21,7 @@ const TabMenu = ({route}) => {
           }
           return (
             <>
-              <View style={{borderWidth: 1}}>
+              <View style={{borderWidth: 1, width: 20}}>
                 <Icon name={iconName} size={25} />
               </View>
             </>

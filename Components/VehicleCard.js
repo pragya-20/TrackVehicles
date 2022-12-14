@@ -2,10 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 const VehicleCard = props => {
-  // console.log(props);
   const itemid = props.x.id;
   const vehicleRegistrationNumber = props.x.registrationNumber;
-  // console.log(vehicleRegistrationNumber);
+
   return (
     <View style={styles.cardContainer}>
       <Text>{vehicleRegistrationNumber}</Text>
