@@ -3,19 +3,17 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import TabMenu from './screens/TabMenu';
+import ViewMap from './screens/ViewMap';
 import Login from './screens/Login';
 import Vehicles from './screens/Vehicles';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  // console.log('In aPP');
   const [token, setToken] = useState(undefined);
   const getToken = async () => {
     try {
       const value = await AsyncStorage.getItem('@token');
-      // console.log('ReievedToken', value);
 
       if (value === null || value === undefined) {
         setToken(null);
@@ -42,6 +40,7 @@ const App = () => {
               component={Vehicles}
               initialParams={{token}}
             />
+            <Stack.Screen name="ViewMap" component={ViewMap} />
           </>
         ) : (
           <Stack.Screen name="Login" component={Login} />

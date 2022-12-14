@@ -4,7 +4,8 @@ import VehicleCard from '../Components/VehicleCard';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 // import {Icon} from 'react-native-vector-icons/Icon';
 
-const Vehicles = ({route}) => {
+const Vehicles = ({route, navigation}) => {
+  // console.log('Vehicles Props:--', navigation);
   const token = route.params.token;
   const [data, setData] = useState(undefined);
   const [searchTerm, setSearchTerm] = useState('');
@@ -73,7 +74,7 @@ const Vehicles = ({route}) => {
             }
           })
           .map((item, i) => {
-            return <VehicleCard key={i} x={item} />; //Passing navigation prop of screen to it's child
+            return <VehicleCard key={i} x={item} nav={navigation} />; //Passing navigation prop of screen to it's child
           })}
       </KeyboardAwareScrollView>
     </>

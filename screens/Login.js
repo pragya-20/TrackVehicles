@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Pressable} from 'react-native';
 
 const Login = ({navigation}) => {
+  // console.log(navigation);
   const [email, setEmail] = useState('ganesh@arvee.co.in');
   const [password, setPassword] = useState('tracknerd@123');
   const [responseFlag, setresponseFlag] = useState(false);
